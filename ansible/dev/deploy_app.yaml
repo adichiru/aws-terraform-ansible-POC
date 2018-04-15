@@ -1,0 +1,20 @@
+- hosts: app
+  tasks:
+    - name: Create the app directory
+      file:
+        path: /home/ec2-user/app
+        state: directory
+        owner: ec2-user
+        group: ec2-user
+        mode: 0775
+    - name: deploy app
+      copy:
+        src: /home/adichiru/boeing/app/dummy-web-server.py
+        dest: /home/ec2-user/app/dummy-web-server.py
+        owner: ec2-user
+        group: ec2-user
+        mode: 0755
+
+    - name: start app
+      command: /home/ec2-user/app/dummy-web-server.py 8080 &
+
